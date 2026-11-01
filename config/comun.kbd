@@ -1,0 +1,79 @@
+;; ============================================================
+;; Capas comunes (Windows y Linux) - Redragon Fizz Pro 60%
+;; Este archivo lo incluyen windows.kbd y linux.kbd. No se ejecuta solo.
+;;
+;; Capas: c0 = teclado normal, c1 = capa 1 (navegacion + mouse)
+;; ENTRAR / SALIR de la capa 1 (cualquiera de los dos):
+;;   - Esc x2 (doble toque rapido, 250 ms)
+;;   - Ctrl derecho: 1 toque. Mantenido sigue siendo Ctrl normal.
+;; Esc x1   = Esc normal
+;; CapsLock = normal (Bloq Mayus)
+;; Salida de emergencia (cierra Kanata): Ctrl izq + Espacio + Esc
+;;
+;; Cada sistema define en su archivo el alias @recorte (captura de pantalla).
+;; ============================================================
+
+;; Teclas fisicas que Kanata controla (posiciones, no letras impresas).
+;; Las teclas de simbolos NO estan aqui a proposito: ver config/windows.kbd.
+(defsrc
+  esc  1    2    3    4    5    6    7    8    9    0    bspc
+  tab  q    w    e    r    t    y    u    i    o    p
+  caps a    s    d    f    g    h    j    k    l    ret
+  lsft z    x    c    v    b    n    m    rsft
+                                          rctl
+)
+
+(defalias
+  ;; Esc: 1 toque = Esc, 2 toques rapidos = cambiar de capa
+  on   (tap-dance 250 (esc (layer-switch c1)))
+  off  (tap-dance 250 (esc (layer-switch c0)))
+  ;; Ctrl derecho: toque = cambiar de capa, mantener (o combinar con otra tecla) = Ctrl
+  ron  (tap-hold-press 200 200 (layer-switch c1) rctl)
+  roff (tap-hold-press 200 200 (layer-switch c0) rctl)
+
+  ;; Mouse: (cada 4 ms, acelera durante 1000 ms, de 1 a 8 pixeles por paso)
+  mu   (movemouse-accel-up    4 1000 1 8)
+  md   (movemouse-accel-down  4 1000 1 8)
+  ml   (movemouse-accel-left  4 1000 1 8)
+  mr   (movemouse-accel-right 4 1000 1 8)
+  ;; Rueda: 1 "muesca" (120) cada 80 ms mientras se mantiene
+  wu   (mwheel-up   80 120)
+  wd   (mwheel-down 80 120)
+  ;; Mantener para mover el mouse lento y preciso (25% de velocidad)
+  lento (movemouse-speed 25)
+)
+
+;; ---------------- CAPA 0 (c0): teclado normal ----------------
+;; El icono (icons/c0.png) solo se usa en la bandeja de Windows; Linux lo ignora.
+(deflayer (c0 icon c0.png)
+  @on  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _
+                                          @ron
+)
+
+;; ---------------- CAPA 1 (c1): activa hasta Esc x2 o toque de Ctrl der ----------------
+;; Numeros   : 1 Silencio, 2 Vol-, 3 Vol+, 4 Anterior, 5 Play/Pausa, 6 Siguiente
+;;             0 Recargar la configuracion
+;; W A S D   : Flechas (W arriba, A izq, S abajo, D der)
+;; Q / E     : Inicio / Fin
+;; R / F     : RePag / AvPag
+;; Z X C V B : Deshacer, Cortar, Copiar, Pegar, Rehacer
+;; T         : Impr Pant
+;; P         : Recorte de pantalla (@recorte, depende del sistema)
+;; Backspace : normal (borra a la izquierda del cursor)
+;; Con Shift o Ctrl mantenidos las flechas seleccionan / saltan palabras.
+;; MOUSE (mano derecha):
+;;   I J K L : mover (I arriba, J izq, K abajo, L der) - acelera al mantener
+;;   U / O   : clic izquierdo / clic derecho (mantener = arrastrar)
+;;   N / M   : rueda arriba / abajo (scroll)
+;;   Y       : clic central (rueda)
+;;   H       : mantener = mouse lento y preciso
+(deflayer (c1 icon c1.png)
+  @off mute vold volu prev pp   next _    _    _    lrld _
+  _    home up   end  pgup prnt mmid mlft @mu  mrgt @recorte
+  _    left down rght pgdn _    @lento @ml @md  @mr  _
+  _    C-z  C-x  C-c  C-v  C-y  @wu  @wd  _
+                                          @roff
+)

@@ -1,0 +1,30 @@
+;; ============================================================
+;; Kanata - configuracion para WINDOWS
+;; Ejecutar: windows\iniciar-kanata.cmd
+;; Las capas estan en comun.kbd (compartidas con Linux).
+;; ============================================================
+
+(defcfg
+  ;; Kanata ignora por completo las teclas de simbolos (pasan directo a Windows).
+  ;; Motivo: Kanata v1.12.0 compara sus teclas con Windows usando nombres del teclado
+  ;; ingles; con distribucion espanola/latina esas teclas no coinciden, salia el aviso
+  ;; "Unexpected keycode ... Clearing kanata states" y dejaban de repetirse al mantenerlas.
+  ;; (ñ, ', ¡, `, +, ç, -, º, ´, <, coma, punto)
+  process-unmapped-keys (all-except min eql lbrc rbrc \ scln apos grv comm . / nubs)
+  ;; En v1.12.0 solo apaga una parte del chequeo. En versiones nuevas usar: none
+  windows-sync-keystates no
+  ;; AltGr en Windows manda un Ctrl izq falso; esto lo cancela (para } { [ ] @ # etc.)
+  windows-altgr cancel-lctl-press
+  ;; Mouse: diagonales suaves y mantener la velocidad al cambiar de direccion
+  movemouse-smooth-diagonals yes
+  movemouse-inherit-accel-state yes
+  ;; Icono en la bandeja (junto al reloj) segun la capa: icons\c0.png / icons\c1.png
+  icon-match-layer-name yes
+)
+
+(defalias
+  ;; Recorte de pantalla de Windows
+  recorte M-S-s
+)
+
+(include comun.kbd)

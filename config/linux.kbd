@@ -1,0 +1,21 @@
+;; ============================================================
+;; Kanata - configuracion para LINUX (Ubuntu)
+;; Se instala con: linux/instalar.sh
+;; Las capas estan en comun.kbd (compartidas con Windows).
+;; ============================================================
+
+(defcfg
+  ;; En Linux no existe el problema de las teclas de simbolos de Windows,
+  ;; asi que Kanata puede procesar todas las teclas.
+  process-unmapped-keys yes
+  ;; Mouse: diagonales suaves y mantener la velocidad al cambiar de direccion
+  movemouse-smooth-diagonals yes
+  movemouse-inherit-accel-state yes
+)
+
+(defalias
+  ;; Recorte de pantalla de Ubuntu (GNOME abre su herramienta de captura con Impr Pant)
+  recorte prnt
+)
+
+(include comun.kbd)

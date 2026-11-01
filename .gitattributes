@@ -1,0 +1,6 @@
+# Scripts de Linux siempre con finales de linea LF (si no, bash falla en Ubuntu)
+*.sh   text eol=lf
+*.py   text eol=lf
+# Scripts de Windows con CRLF
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf

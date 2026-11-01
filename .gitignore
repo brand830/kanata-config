@@ -1,0 +1,12 @@
+# Ejecutables de Kanata: se descargan de https://github.com/jtroo/kanata/releases (ver README)
+/kanata.exe
+/kanata
+/bin/
+*.zip
+
+# Indicador de Windows compilado (se genera con windows/indicador/compilar.cmd)
+/windows/indicador/*.exe
+
+# Varios
+__pycache__/
+*.log
