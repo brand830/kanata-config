@@ -235,7 +235,7 @@ Es un cuadrado de 36×36 px en la **parte inferior central** de la pantalla.
 | Capa | Color | Comportamiento |
 |---|---|---|
 | **C0** | Gris con letras blancas | Aparece ~1,2 s al volver a la capa 0 y se oculta |
-| **C1** | Blanco con letras oscuras | Se queda visible mientras la capa 1 esté activa |
+| **C1** | Blanco con letras oscuras | Aparece ~2,5 s al entrar a la capa 1 y se oculta |
 
 ### Cómo funciona
 
@@ -255,7 +255,7 @@ Es un cuadrado de 36×36 px en la **parte inferior central** de la pantalla.
 Los colores, el tamaño, el tiempo y la distancia al borde están al inicio de cada archivo:
 
 - **C#:** `FONDO_BASE`, `TEXTO_BASE`, `FONDO_CAPA`, `TEXTO_CAPA`, `LADO`, `MS_MOSTRAR_BASE`, `MARGEN_INFERIOR`. Después de cambiarlos, vuelve a ejecutar `compilar.cmd` (cierra antes el indicador con `detener-kanata.cmd`).
-- **Python:** `COLORES`, `LADO`, `MS_MOSTRAR_BASE`, `MARGEN_INFERIOR`.
+- **Python:** `COLORES`, `LADO`, `MS_MOSTRAR_BASE`, `MS_MOSTRAR_CAPA`, `MARGEN_INFERIOR`.
 
 Si cambias los colores, puedes regenerar también `config/icons/c0.png` y `c1.png` (64×64) para que coincidan con la bandeja de Windows.
 
@@ -311,7 +311,7 @@ En v1.12.0 esa opción solo acepta `yes`/`no`. `none` es de versiones más nueva
 
 - Ubuntu usa **Wayland** por defecto. El indicador (Tk) corre mediante XWayland, y algunas versiones de GNOME no respetan la posición o el "siempre encima".
 - Si pasa: en la pantalla de inicio de sesión, el ícono ⚙️ → **"Ubuntu en Xorg"**.
-- Con varios monitores, el centro se calcula sobre el área total.
+- Con varios monitores, el indicador se centra en el **monitor principal** (el que `xrandr --listactivemonitors` marca con `*`). Si `xrandr` no está disponible, usa el área total. Para cambiar el principal: Configuración → Pantallas → **Pantalla principal**.
 
 ### 7.6 Ubuntu: Kanata no arranca (permisos)
 

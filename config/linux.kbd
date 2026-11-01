@@ -8,6 +8,12 @@
   ;; En Linux no existe el problema de las teclas de simbolos de Windows,
   ;; asi que Kanata puede procesar todas las teclas.
   process-unmapped-keys yes
+  ;; Solo el Redragon Fizz Pro (Linux lo reconoce como "BY Tech Gaming Keyboard").
+  ;; El teclado de la laptop ("AT Translated Set 2 keyboard") queda normal.
+  ;; Para ver los nombres: grep Name= /proc/bus/input/devices
+  linux-dev-names-include ("BY Tech Gaming Keyboard")
+  ;; Si el Redragon no esta conectado al arrancar, Kanata espera en vez de fallar
+  linux-continue-if-no-devs-found yes
   ;; Mouse: diagonales suaves y mantener la velocidad al cambiar de direccion
   movemouse-smooth-diagonals yes
   movemouse-inherit-accel-state yes
