@@ -23,7 +23,7 @@ Versión de Kanata usada: **v1.12.0**
 6. [El indicador de capa](#6-el-indicador-de-capa)
 7. [Problemas conocidos y sus soluciones](#7-problemas-conocidos-y-sus-soluciones)
 8. [Historial: qué se hizo y por qué](#8-historial-qué-se-hizo-y-por-qué)
-9. [Subir a GitHub y clonar en otra PC](#9-subir-a-github-y-clonar-en-otra-pc)
+9. [GitHub: clonar en otra PC y guardar cambios](#9-github-clonar-en-otra-pc-y-guardar-cambios)
 
 ---
 
@@ -164,7 +164,7 @@ Desinstalar del todo: quitar el arranque automático, cerrar con `detener-kanata
 ### 4.1 Instalación
 
 ```bash
-git clone https://github.com/<tu-usuario>/<tu-repo>.git ~/kanata
+git clone https://github.com/brand830/kanata-config.git ~/kanata
 cd ~/kanata
 bash linux/instalar.sh
 ```
@@ -350,27 +350,36 @@ En v1.12.0 esa opción solo acepta `yes`/`no`. `none` es de versiones más nueva
 
 ---
 
-## 9. Subir a GitHub y clonar en otra PC
+## 9. GitHub: clonar en otra PC y guardar cambios
 
-### Primera vez (desde esta PC con Windows)
-
-1. Instala Git: `winget install --id Git.Git -e`. Luego cierra y vuelve a abrir la terminal.
-2. Crea un repositorio **vacío** en <https://github.com/new> (sin README), por ejemplo `mi-teclado-kanata`.
-3. En la carpeta del proyecto:
-   ```powershell
-   git init
-   git add .
-   git commit -m "Configuracion de Kanata: capas c0/c1, indicador, Windows y Ubuntu"
-   git branch -M main
-   git remote add origin https://github.com/<tu-usuario>/mi-teclado-kanata.git
-   git push -u origin main
-   ```
-   Antes del commit, `git status` no debe mostrar `kanata.exe`, `bin/` ni `indicador-capa.exe`.
+Repositorio: **<https://github.com/brand830/kanata-config>** (público)
 
 ### En otra PC
 
-- **Windows:** `git clone ...` y seguir la [sección 3.1](#31-instalación-en-una-pc-nueva).
-- **Ubuntu:** `git clone ...` y `bash linux/instalar.sh` ([sección 4.1](#41-instalación)).
+- **Windows:**
+  ```powershell
+  winget install --id Git.Git -e
+  git clone https://github.com/brand830/kanata-config.git D:\PROYECTOS\kanata
+  ```
+  Luego sigue la [sección 3.1](#31-instalación-en-una-pc-nueva).
+- **Ubuntu:**
+  ```bash
+  sudo apt install -y git
+  git clone https://github.com/brand830/kanata-config.git ~/kanata
+  bash ~/kanata/linux/instalar.sh
+  ```
+  Más detalles en la [sección 4.1](#41-instalación).
+
+Para **clonar** no hace falta iniciar sesión, porque el repositorio es público. Para **subir cambios** sí: en Windows se usó GitHub CLI (`gh auth login`); en Ubuntu, `sudo apt install gh` y luego `gh auth login`.
+
+Los commits usan el correo privado de GitHub (`...@users.noreply.github.com`), así el correo real no queda público. En otra PC configúralo igual:
+
+```bash
+git config --global user.name "Brandon Alanoca Maquera"
+git config --global user.email "136955285+brand830@users.noreply.github.com"
+```
+
+`git status` nunca debe mostrar `kanata.exe`, `kanata`, `bin/` ni `indicador-capa.exe`: están excluidos en `.gitignore`.
 
 ### Al hacer cambios
 
